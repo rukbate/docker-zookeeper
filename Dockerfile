@@ -2,8 +2,8 @@
 
 FROM openjdk:8-jre-alpine
 
-ARG ZOOKEEPER_VERSION=3.4.10
-ARG ZOOKEEPER_MIRROR=http://www-eu.apache.org
+ARG ZOOKEEPER_VERSION=3.4.14
+ARG ZOOKEEPER_MIRROR=http://www-us.apache.org
 
 LABEL name="zookeeper" version=${ZOOKEEPER_VERSION}
 
