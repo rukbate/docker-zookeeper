@@ -13,7 +13,7 @@ RUN chmod +x /usr/local/sbin/start.sh
 
 RUN apk add --no-cache wget bash
 
-RUN mkdir /opt \
+RUN mkdir -p /opt \
   && wget -q -O - ${ZOOKEEPER_MIRROR}/dist/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/zookeeper-${ZOOKEEPER_VERSION}.tar.gz | tar -xzf - -C /opt \
   && mv /opt/zookeeper-* /opt/zookeeper \
   && chown -R root:root /opt/zookeeper
