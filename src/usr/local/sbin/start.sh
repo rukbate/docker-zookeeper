@@ -3,6 +3,8 @@
 # Fail hard and fast
 set -eo pipefail
 
+echo "Start rukbate zookeeper instance ..."
+
 ZOOKEEPER_ID=${ZOOKEEPER_ID:-1}
 echo "ZOOKEEPER_ID=$ZOOKEEPER_ID"
 
@@ -47,6 +49,16 @@ do
       echo "server.${SERVER_ID}=${SERVER_IP}:2888:3888" >> /opt/zookeeper/conf/zoo.cfg
       echo "server.${SERVER_ID}=${SERVER_IP}:2888:3888"
     fi
+  fi
+  if [[ $VAR =~ ^GROUP_[0-9]+= ]]; then
+    GROUP_ID=`echo "$VAR" | sed -r "s/GROUP_(.*)=.*/\1/"`
+    GROUP_MEMBERS=`echo "$VAR" | sed 's/.*=//'`
+    echo "server.${GROUP_ID}=${GROUP_MEMBERS}" >> /opt/zookeeper/conf/zoo.cfg
+  fi
+  if [[ $VAR =~ ^WEIGHT_[0-9]+= ]]; then
+    SERVER_ID=`echo "$VAR" | sed -r "s/WEIGHT_(.*)=.*/\1/"`
+    SERVER_WEIGHT=`echo "$VAR" | sed 's/.*=//'`
+    echo "weight.${SERVER_ID}=${SERVER_WEIGHT}" >> /opt/zookeeper/conf/zoo.cfg
   fi
 done
 
